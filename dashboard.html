@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodje - Mon Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Vidéo d'arrière-plan -->
+    <video id="background-video" autoplay muted loop playsinline>
+        <source src="assets/anime/FondAnime.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo HTML5.
+    </video>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
+            </div>
+            <div class="nav-menu">
+                <button class="info-button" onclick="toggleInfoPopup()">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="cta-button nav-cta" onclick="logout()">Retour à l'accueil</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Info Popup -->
+    <div class="info-popup" id="infoPopup">
+        <div class="info-popup-content">
+            <div class="info-popup-header">
+                <h3>Mes Informations</h3>
+                <button class="close-popup" onclick="toggleInfoPopup()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="info-popup-body">
+                <div class="info-item">
+                    <strong>Email :</strong> <span id="user-email">--</span>
+                </div>
+                <div class="info-item">
+                    <strong>Nom d'utilisateur :</strong> <span id="user-username">--</span>
+                </div>
+                <div class="info-item">
+                    <strong>Code fondateur :</strong> <span id="user-founder-code-popup">--</span>
+                </div>
+                <div class="info-item">
+                    <strong>Inscription :</strong> <span id="user-registration-date">--</span>
+                </div>
+                <div class="info-item">
+                    <strong>Statut :</strong> <span class="status-badge" id="user-status">Fondateur</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h1>Bienvenue dans<br>l'aventure Dodje !</h1>
+                    <div class="header-countdown">
+                        <div class="countdown-timer-inline">
+                            <div class="time-unit-inline">
+                                <span id="days-mini" class="time-value-inline">--</span>
+                                <span class="time-label-inline">JOURS</span>
+                            </div>
+                            <div class="time-unit-inline">
+                                <span id="hours-mini" class="time-value-inline">--</span>
+                                <span class="time-label-inline">HEURES</span>
+                            </div>
+                            <div class="time-unit-inline">
+                                <span id="minutes-mini" class="time-value-inline">--</span>
+                                <span class="time-label-inline">MIN</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="dashboard-subtitle">T'es pressé, nous aussi. Voici quelques missions pour t'aider à patienter :</p>
+                </div>
+            </div>
+
+            <!-- Passe de Combat -->
+            <div class="battle-pass-section">
+                <div class="battle-pass-header">
+                    <div class="battle-pass-title">
+                        <div class="battle-pass-title-row">
+                            <img src="assets/Recompense.png" alt="Récompense" class="reward-icon">
+                            <h2>Le réveil du gland</h2>
+                        </div>
+                        <p class="battle-pass-subtitle">Invite des potes et gagne des récompenses !</p>
+                        <div class="advancement-score">
+                            <span id="referrals-count">0</span> parrainages
+                        </div>
+                    </div>
+                    <div class="founder-code-section">
+                        <h3 class="founder-code-title">Mon code fondateur</h3>
+                        <div class="founder-code">
+                            <div class="code-value" id="user-founder-code">
+                                <!-- Code sera injecté par JavaScript -->
+                            </div>
+                            <button class="copy-button-minimal" onclick="copyFounderCode()" title="Copier le code">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="battle-pass-rewards">
+                    <div class="rewards-track">
+                        <!-- Niveau 1 -->
+                        <div class="reward-item" data-level="1">
+                            <div class="reward-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">Dodje Fondateur</div>
+                                <div class="reward-description">Icône exclusive</div>
+                            </div>
+                            <div class="reward-requirement">1 parrainage</div>
+                        </div>
+                        
+                        <!-- Niveau 5 -->
+                        <div class="reward-item" data-level="5">
+                            <div class="reward-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">DodjeOne Gratuit</div>
+                                <div class="reward-description">1 mois offert à l'inscription</div>
+                            </div>
+                            <div class="reward-requirement">5 parrainages</div>
+                        </div>
+                        
+                        <!-- Niveau 10 -->
+                        <div class="reward-item" data-level="10">
+                            <div class="reward-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">1500 Dodji</div>
+                                <div class="reward-description">Monnaie virtuelle offerte</div>
+                            </div>
+                            <div class="reward-requirement">10 parrainages</div>
+                        </div>
+                        
+                        <!-- Niveau 25 -->
+                        <div class="reward-item" data-level="25">
+                            <div class="reward-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">Early Access</div>
+                                <div class="reward-description">Accès anticipé à la beta</div>
+                            </div>
+                            <div class="reward-requirement">25 parrainages</div>
+                        </div>
+                        
+                        <!-- Niveau 50 -->
+                        <div class="reward-item" data-level="50">
+                            <div class="reward-icon">
+                                <i class="fas fa-mask"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">Skin "Gland Fondateur"</div>
+                                <div class="reward-description">Skin exclusif</div>
+                            </div>
+                            <div class="reward-requirement">50 parrainages</div>
+                        </div>
+                        
+                        <!-- Niveau 100 -->
+                        <div class="reward-item" data-level="100">
+                            <div class="reward-icon">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">DodjeOne à Vie</div>
+                                <div class="reward-description">Abonnement premium permanent</div>
+                            </div>
+                            <div class="reward-requirement">100 parrainages</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Minijeu Flappy Bird -->
+            <div class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <div class="game-title-row">
+                            <img src="assets/arbre.png" alt="Arbre" class="game-icon">
+                            <h2>Dodje Bird</h2>
+                        </div>
+                        <p class="game-subtitle">Réalise le meilleur score et gagne des récompenses !</p>
+                    </div>
+                    <div class="game-score">
+                        <div class="score-display">
+                            <span id="current-score">0</span>
+                            <span class="score-label">Score</span>
+                        </div>
+                        <div class="best-score">
+                            <span id="best-score">0</span>
+                            <span class="score-label">Meilleur</span>
+                        </div>
+                        <button class="leaderboard-button-header" onclick="toggleLeaderboard()">
+                            <img src="assets/Trophee.png" alt="Trophée" class="trophy-icon"> Classement
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+                    <div class="game-overlay" id="gameOverlay">
+                        <div class="game-start-screen" id="startScreen">
+                            <h3>Dodje Bird</h3>
+                            <p>Clique ou appuie sur ESPACE pour jouer</p>
+                            <button class="start-button" onclick="startGame()">Commencer</button>
+                        </div>
+                        <div class="game-over-screen" id="gameOverScreen" style="display: none;">
+                            <h3>Game Over!</h3>
+                            <p>Score: <span id="finalScore">0</span></p>
+                            <p>Meilleur score: <span id="finalBestScore">0</span></p>
+                            <button class="restart-button" onclick="restartGame()">Rejouer</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup du Leaderboard Global -->
+    <div class="leaderboard-popup" id="leaderboardPopup" style="display: none;">
+        <div class="leaderboard-popup-content">
+            <div class="leaderboard-header">
+                <h3><img src="assets/Trophee.png" alt="Trophée" class="trophy-icon-header"> Classement Global</h3>
+                <button class="close-leaderboard" onclick="closeLeaderboard()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="leaderboard-reward-message">
+                <p>Les 10 premiers gagneront une récompense glandesque</p>
+            </div>
+            <div class="leaderboard-content">
+                <div class="leaderboard-loading" id="leaderboardLoading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Chargement du classement...</p>
+                </div>
+                <div class="leaderboard-list" id="leaderboardList">
+                    <!-- Les scores seront injectés ici -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="footer-logo">
+                    <p>L'application qui révolutionne l'éducation financière</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Suis le mouvement</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Liens utiles</h4>
+                    <ul>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Presse / Dossier media</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Dodje. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html> 

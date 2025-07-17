@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodje - L'application qui t'apprends la finance simplement et avec fun</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Vidéo d'arrière-plan -->
+    <video id="background-video" autoplay muted loop playsinline>
+        <source src="assets/anime/FondAnime.mp4" type="video/mp4">
+        <!-- Fallback pour les navigateurs qui ne supportent pas la vidéo -->
+        Votre navigateur ne supporte pas la vidéo HTML5.
+    </video>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
+            </div>
+            <div class="nav-menu">
+                <a href="#about" class="nav-link">À propos</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#community" class="nav-link">Communauté</a>
+                <button class="cta-button nav-cta">C'est parti !</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    L'application <span class="animate-gratuit">gratuite</span> qui t'apprend la finance 
+                    <span class="animate-simplement">simplement</span> et avec <span class="animate-fun">fun</span> !
+                </h1>
+                <button class="cta-button hero-cta">
+                    C'est parti !
+                </button>
+            </div>
+            <div class="hero-visual">
+                <img src="assets/anime/Salut.gif" alt="Salut Dodje" class="salut-gif">
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Pillars Section - Duolingo Style -->
+    <section class="pillars" id="pillars">
+        <div class="container">
+            <!-- Pillar 1: Apprentissage progressif -->
+            <div class="pillar-row reverse">
+                <div class="pillar-content">
+                    <h2 class="pillar-title">
+                        Un voyage<br>
+                        <span class="animate-progressif">progressif</span>
+                    </h2>
+                    <p class="pillar-description">
+                        Plus qu'une app, un mentor. Tu commences par les bases, tu avances à ton rythme, tu comprends tout. Pour de vrai.
+                        Parc qu'on ne naît pas investisseur, <strong>on le devient</strong> ! 
+                    </p>
+                    <div class="pillar-quote">
+                        Parce que chaque <strong>grand chêne à un jour été un gland</strong>
+                    </div>
+                </div>
+                <div class="pillar-visual">
+                    <img src="assets/anime/Parcours.gif" alt="Parcours Dodje" class="parcours-gif">
+                </div>
+            </div>
+
+            <!-- Pillar 2: Accessibilité -->
+            <div class="pillar-row">
+                <div class="pillar-content">
+                    <h2 class="pillar-title">
+                        Une méthode<br>
+                        <span class="animate-revolutionnaire">révolutionnaire</span>
+                    </h2>
+                    <p class="pillar-description">
+                        La finance n'est plus réservée à ceux qui savent déjà. 
+                        Pas de promesses magiques, pas de vendeurs de rêve, sans costume ni charabia.
+                    </p>
+                    <div class="pillar-quote">
+                        Pour remettre le savoir entre les mains de ceux qui en ont vraiment besoin.
+                    </div>
+                </div>
+                <div class="pillar-visual">
+                    <img src="assets/anime/MéthodeRevolutionnaire.gif" alt="Méthode révolutionnaire Dodje" class="methode-gif">
+                </div>
+            </div>
+
+            <!-- Pillar 3: Fun et engagement -->
+            <div class="pillar-row reverse">
+                <div class="pillar-content">
+                    <h2 class="pillar-title">
+                        <span class="animate-gratuit-simple-fun">Gratuit. Simple.<br>Fun.</span>
+                    </h2>
+                    <p class="pillar-description">
+                        Une app gratuite, qui t'accompagne dans ta progression tout en s'amusant. 
+                        Gagne des badges, des skins et bien plus encore !
+                    </p>
+                    <div class="pillar-quote">
+                        Parce que la finance n'a pas besoin d'être une prise de tête.
+                    </div>
+                </div>
+                <div class="pillar-visual">
+                    <div class="fun-illustration">
+                        <div class="game-elements">
+                            <div class="trophy">🏆</div>
+                            <div class="star">⭐</div>
+                            <div class="fire">🔥</div>
+                        </div>
+                        <div class="happy-face">😊</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="video-container">
+                <div class="custom-video-player">
+                    <video class="about-video" preload="metadata" poster="assets/Plan_de_travail_8.webp">
+                        <source src="assets/DodjePresentation.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la vidéo HTML5.
+                    </video>
+                    <div class="play-button-overlay">
+                        <button class="custom-play-button">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="video-time-display">
+                        <span class="current-time">0:00</span> / <span class="total-time">0:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section - Duolingo Style -->
+    <section class="features" id="features">
+        <div class="container">
+            <!-- Feature 1: Parcours personnalisés -->
+            <div class="feature-row">
+                <div class="feature-content">
+                    <h2 class="feature-title">
+                        Des parcours<br>
+                        <span class="animate-personnalises">personnalisés</span>
+                    </h2>
+                    <p class="feature-description">
+                        Plus qu'un apprentissage, une <strong>épopée financière</strong>. 
+                        Chaque parcours s'adapte à ton niveau et à tes objectifs pour t'emmener vers la maîtrise.
+                    </p>
+                </div>
+                <div class="feature-visual">
+                    <div class="level-illustration">
+                        <img src="assets/anime/Level.gif" alt="Progression des niveaux" class="level-gif">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2: Vidéos engageantes -->
+            <div class="feature-row reverse">
+                <div class="feature-visual">
+                    <div class="video-illustration">
+                        <video class="feature-video" autoplay muted loop playsinline>
+                            <source src="assets/anime/BourseMonstre.mp4" type="video/mp4">
+                            <div class="play-button">▶️</div>
+                        </video>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h2 class="feature-title">
+                        Des vidéos<br>
+                        <span class="animate-dynamiques">dynamiques</span>
+                    </h2>
+                    <p class="feature-description">
+                        Des séries de vidéos animées <strong>pleines de vie</strong>. 
+                        Parce que la finance n'a pas besoin d'être ennuyeuse.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 3: Apprentissage ludique -->
+            <div class="feature-row">
+                <div class="feature-content">
+                    <h2 class="feature-title">
+                        Un apprentissage<br>
+                        <span class="animate-ludique">ludique</span>
+                    </h2>
+                    <p class="feature-description">
+                        Réalise des <strong>défis quotidiens</strong> et obtiens des récompenses. 
+                        Apprendre en s'amusant, c'est la clé de la mémorisation durable.
+                    </p>
+                </div>
+                <div class="feature-visual">
+                    <div class="game-illustration">
+                        <div class="controller">🎮</div>
+                        <div class="rewards">
+                            <div class="coin">🪙</div>
+                            <div class="badge">🏅</div>
+                            <div class="crown">👑</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 4: DodjeLabs -->
+            <div class="feature-row reverse">
+                <div class="feature-visual">
+                    <img src="assets/anime/e_pope_e.gif" alt="Épopée complète Dodje" class="epopee-gif">
+                </div>
+                <div class="feature-content">
+                    <h2 class="feature-title">
+                        Une aventure<br>
+                        <span class="animate-complete">complète</span>
+                    </h2>
+                    <p class="feature-description">
+                        Plus que de simples cours ! Avec <strong>DodjeLabs</strong>, tu 
+                        passes du théorique à la pratique en mode simulateur réaliste.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="countdown" id="countdown">
+        <div class="container">
+            <h2 class="countdown-title">Lancement officiel dans :</h2>
+            <div class="countdown-timer">
+                <div class="time-unit">
+                    <span id="days" class="time-value">14</span>
+                    <span class="time-label">JOURS</span>
+                </div>
+                <div class="time-unit">
+                    <span id="hours" class="time-value">06</span>
+                    <span class="time-label">HEURES</span>
+                </div>
+                <div class="time-unit">
+                    <span id="minutes" class="time-value">12</span>
+                    <span class="time-label">MINUTES</span>
+                </div>
+                <div class="time-unit">
+                    <span id="seconds" class="time-value">00</span>
+                    <span class="time-label">SECONDES</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <div class="community-content">
+                <div class="community-visual">
+                    <img src="assets/anime/Re_volution.gif" alt="Révolution Dodje" class="revolution-video">
+                </div>
+                <div class="community-text">
+                    <h2 class="community-title">
+                        <span class="animate-revolution">Participe à la révolution Dodje en avant première !</span>
+                    </h2>
+                    <button class="cta-button community-cta">C'est parti</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="footer-logo">
+                    <p>L'application qui révolutionne l'éducation financière</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Suis le mouvement</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Liens utiles</h4>
+                    <ul>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Presse / Dossier media</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Dodje. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de préinscription -->
+    <div class="modal-overlay" id="preinscription-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Rejoins la révolution Dodje !</h2>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Onglets -->
+                <div class="modal-tabs">
+                    <button class="tab-button active" data-tab="signup">S'inscrire</button>
+                    <button class="tab-button" data-tab="login">Se connecter</button>
+                </div>
+                
+                <!-- Contenu onglet inscription -->
+                <div class="tab-content active" id="signup-tab">
+                    <p>Sois parmi les premiers à découvrir Dodje dès son lancement officiel !</p>
+                    <form id="preinscription-form">
+                        <div class="form-group">
+                            <input 
+                                type="email" 
+                                id="email-input" 
+                                placeholder="ton@email.com" 
+                                required
+                                autocomplete="email"
+                            >
+                            <input 
+                                type="text" 
+                                id="username-input" 
+                                placeholder="Nom d'utilisateur" 
+                                required
+                                autocomplete="username"
+                            >
+                            <input 
+                                type="text" 
+                                id="founder-code-input" 
+                                placeholder="Code fondateur (optionnel)" 
+                                autocomplete="off"
+                            >
+                            <div class="founder-code-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Tu ne peux pas utiliser ton propre code de parrainage</span>
+                            </div>
+                            <button type="submit" class="cta-button submit-email">
+                                <span class="button-text">Réserver ma place</span>
+                                <span class="button-loader" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Contenu onglet connexion -->
+                <div class="tab-content" id="login-tab">
+                    <p>Connecte-toi avec ton compte existant :</p>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <input 
+                                type="text" 
+                                id="login-input" 
+                                placeholder="Adresse email ou nom d'utilisateur" 
+                                required
+                                autocomplete="username"
+                            >
+                            <button type="submit" class="cta-button submit-login">
+                                <span class="button-text">Se connecter</span>
+                                <span class="button-loader" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="success-message" id="success-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Parfait ! Tu fais maintenant partie de l'aventure Dodje !</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
