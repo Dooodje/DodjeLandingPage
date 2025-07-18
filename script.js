@@ -63,6 +63,89 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 100);
     
+    // ==================== NAVIGATION DYNAMIQUE ====================
+    const navbarMinimal = document.getElementById('navbar-minimal');
+    const navbarScroll = document.getElementById('navbar-scroll');
+    let navScrollTop = 0;
+    const scrollThreshold = 100; // Pixels de scroll avant de changer le header
+    
+    // Fonction pour gérer l'affichage des headers selon le scroll
+    function handleScrollNavigation() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > scrollThreshold) {
+            // Masquer le header minimal et afficher le header complet
+            if (!navbarMinimal.classList.contains('hidden')) {
+                navbarMinimal.classList.add('hidden');
+            }
+            if (!navbarScroll.classList.contains('visible')) {
+                navbarScroll.classList.add('visible');
+            }
+        } else {
+            // Afficher le header minimal et masquer le header complet
+            if (navbarMinimal.classList.contains('hidden')) {
+                navbarMinimal.classList.remove('hidden');
+            }
+            if (navbarScroll.classList.contains('visible')) {
+                navbarScroll.classList.remove('visible');
+            }
+        }
+        
+        navScrollTop = scrollTop;
+    }
+    
+    // Event listener pour le scroll
+    window.addEventListener('scroll', handleScrollNavigation, { passive: true });
+    
+    // Initialiser l'état au chargement
+    handleScrollNavigation();
+    
+    // ==================== MENU MOBILE ====================
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    
+    // Fonction pour ouvrir le menu mobile
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Fonction pour fermer le menu mobile
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Event listeners pour le menu mobile
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+    }
+    
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+    
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+    
+    // Fermer le menu mobile quand on clique sur un lien
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links .nav-link');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // Fermer le menu mobile sur escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+    
     // ==================== FIREBASE CONFIGURATION ====================
     const firebaseConfig = {
         apiKey: "AIzaSyDgDWiRJuwuG6jnqwKyIVlNEAiNTTu6jdQ",
@@ -480,23 +563,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginInput = document.getElementById('login-input');
     
     // Fonction pour vérifier les credentials de connexion
-    async function checkLoginCredentials(loginValue) {
+    async function checkLoginCredentials(email) {
         try {
-            // Vérifier si c'est un email ou un username
-            const isEmail = loginValue.includes('@');
-            let query;
-            
-            if (isEmail) {
-                // Recherche par email
-                query = await db.collection('preinscription')
-                    .where('email', '==', loginValue)
-                    .get();
-            } else {
-                // Recherche par username
-                query = await db.collection('preinscription')
-                    .where('username', '==', loginValue)
-                    .get();
+            // Vérifier que c'est bien un email valide
+            if (!isValidEmail(email)) {
+                return { success: false, error: 'Adresse email invalide' };
             }
+            
+            // Recherche par email uniquement
+            const query = await db.collection('preinscription')
+                .where('email', '==', email)
+                .get();
             
             if (!query.empty) {
                 const userData = query.docs[0].data();
@@ -513,7 +590,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 };
             } else {
-                return { success: false, error: 'Utilisateur non trouvé' };
+                return { success: false, error: 'Aucun compte trouvé avec cette adresse email' };
             }
         } catch (error) {
             console.error('Erreur lors de la vérification des credentials:', error);
@@ -525,14 +602,19 @@ document.addEventListener('DOMContentLoaded', function() {
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const loginValue = loginInput.value.trim();
+        const email = loginInput.value.trim();
         const submitButton = this.querySelector('.submit-login');
         const buttonText = submitButton.querySelector('.button-text');
         const buttonLoader = submitButton.querySelector('.button-loader');
         
-        // Validation de l'input
-        if (!loginValue || loginValue.length < 3) {
-            showError(loginInput, 'Veuillez entrer votre email ou nom d\'utilisateur');
+        // Validation de l'email
+        if (!email) {
+            showError(loginInput, 'Veuillez entrer votre adresse email');
+            return;
+        }
+        
+        if (!isValidEmail(email)) {
+            showError(loginInput, 'Veuillez entrer une adresse email valide');
             return;
         }
         
@@ -542,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.disabled = true;
         
         try {
-            const result = await checkLoginCredentials(loginValue);
+            const result = await checkLoginCredentials(email);
             
             if (result.success) {
                 console.log('Connexion réussie:', result.user);
@@ -559,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'dashboard.html';
                 
             } else {
-                showError(loginInput, result.error || 'Utilisateur non trouvé');
+                showError(loginInput, result.error || 'Aucun compte trouvé avec cette adresse email');
                 resetLoginButton();
             }
         } catch (error) {

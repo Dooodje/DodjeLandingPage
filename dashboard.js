@@ -1,5 +1,180 @@
 // Dashboard JavaScript pour Dodje
 
+// ==================== NAVIGATION DYNAMIQUE ====================
+const navbarMinimal = document.getElementById('navbar-minimal');
+const navbarScroll = document.getElementById('navbar-scroll');
+let navScrollTop = 0;
+const scrollThreshold = 100; // Pixels de scroll avant de changer le header
+
+// Fonction pour gérer l'affichage des headers selon le scroll
+function handleScrollNavigation() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > scrollThreshold) {
+        // Masquer le header minimal et afficher le header complet
+        if (!navbarMinimal.classList.contains('hidden')) {
+            navbarMinimal.classList.add('hidden');
+        }
+        if (!navbarScroll.classList.contains('visible')) {
+            navbarScroll.classList.add('visible');
+        }
+    } else {
+        // Afficher le header minimal et masquer le header complet
+        if (navbarMinimal.classList.contains('hidden')) {
+            navbarMinimal.classList.remove('hidden');
+        }
+        if (navbarScroll.classList.contains('visible')) {
+            navbarScroll.classList.remove('visible');
+        }
+    }
+    
+    navScrollTop = scrollTop;
+}
+
+// Event listener pour le scroll
+window.addEventListener('scroll', handleScrollNavigation, { passive: true });
+
+// Initialiser l'état au chargement
+handleScrollNavigation();
+
+// ==================== MENU MOBILE ====================
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+// ==================== FONCTION POUR METTRE À JOUR LE MENU MOBILE ====================
+// Fonction pour mettre à jour le menu mobile spécifiquement
+function updateMobileUserInfo(userData) {
+    console.log('🔄 Mise à jour menu mobile avec:', userData);
+    
+    const mobileEmailEl = document.getElementById('mobile-user-email');
+    const mobileUsernameEl = document.getElementById('mobile-user-username');
+    const mobileFounderCodeEl = document.getElementById('mobile-user-founder-code');
+    const mobileRegistrationEl = document.getElementById('mobile-user-registration-date');
+    const mobileStatusEl = document.getElementById('mobile-user-status');
+    
+    console.log('📱 Éléments trouvés:', {
+        email: !!mobileEmailEl,
+        username: !!mobileUsernameEl,
+        founderCode: !!mobileFounderCodeEl,
+        registration: !!mobileRegistrationEl,
+        status: !!mobileStatusEl
+    });
+    
+    if (mobileEmailEl) {
+        mobileEmailEl.textContent = userData.email || '--';
+        console.log('✅ Email mis à jour:', userData.email);
+    }
+    if (mobileUsernameEl) {
+        mobileUsernameEl.textContent = userData.username || '--';
+        console.log('✅ Username mis à jour:', userData.username);
+    }
+    if (mobileFounderCodeEl) {
+        const founderCode = userData.generatedFounderCode || userData.founderCode || userData.code || '--';
+        mobileFounderCodeEl.textContent = founderCode;
+        console.log('✅ Code fondateur mis à jour:', founderCode, 'from userData:', userData);
+    }
+    if (mobileRegistrationEl) {
+        let formattedDate = '--';
+        
+        console.log('🔍 Debug date - userData.timestamp:', userData.timestamp, 'type:', typeof userData.timestamp);
+        
+        // Essayer différentes sources de date
+        const timestamp = userData.timestamp || userData.registrationDate || userData.createdAt || userData.date;
+        
+        if (timestamp) {
+            try {
+                if (typeof timestamp === 'object' && timestamp.seconds) {
+                    // Format Firestore timestamp
+                    formattedDate = new Date(timestamp.seconds * 1000).toLocaleDateString('fr-FR');
+                    console.log('📅 Date formatée depuis Firestore timestamp:', formattedDate);
+                } else if (typeof timestamp === 'string') {
+                    // Format string
+                    const date = new Date(timestamp);
+                    if (!isNaN(date.getTime())) {
+                        formattedDate = date.toLocaleDateString('fr-FR');
+                        console.log('📅 Date formatée depuis string:', formattedDate);
+                    }
+                } else if (typeof timestamp === 'number') {
+                    // Format number (timestamp en millisecondes)
+                    const date = new Date(timestamp);
+                    if (!isNaN(date.getTime())) {
+                        formattedDate = date.toLocaleDateString('fr-FR');
+                        console.log('📅 Date formatée depuis number:', formattedDate);
+                    }
+                }
+                
+                // Si on a toujours pas de date, essayer avec la fonction formatDate du scope parent
+                if (formattedDate === '--' && typeof window !== 'undefined' && window.formatDate) {
+                    formattedDate = window.formatDate(timestamp);
+                    console.log('📅 Date formatée avec window.formatDate:', formattedDate);
+                }
+            } catch (error) {
+                console.error('❌ Erreur lors du formatage de la date:', error);
+                formattedDate = '--';
+            }
+        } else {
+            console.log('⚠️ Aucun timestamp trouvé dans les données');
+        }
+        
+        mobileRegistrationEl.textContent = formattedDate;
+        console.log('✅ Date inscription mise à jour:', formattedDate);
+    }
+    if (mobileStatusEl) {
+        mobileStatusEl.textContent = 'FONDATEUR';
+        console.log('✅ Statut mis à jour: FONDATEUR');
+    }
+}
+
+// Fonction pour obtenir l'utilisateur depuis le cache
+function getUserFromCache() {
+    const userData = localStorage.getItem('dodje_user');
+    return userData ? JSON.parse(userData) : null;
+}
+
+// Fonction pour ouvrir le menu mobile
+function openMobileMenu() {
+    mobileMenu.classList.add('active');
+    mobileMenuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Mettre à jour les données du menu mobile à l'ouverture
+    const cachedUser = getUserFromCache();
+    if (cachedUser) {
+        console.log('🔄 Mise à jour menu mobile à l\'ouverture avec cache:', cachedUser);
+        updateMobileUserInfo(cachedUser);
+    }
+}
+
+// Fonction pour fermer le menu mobile
+function closeMobileMenu() {
+    mobileMenu.classList.remove('active');
+    mobileMenuOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Event listeners pour le menu mobile
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', openMobileMenu);
+}
+
+if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+}
+
+if (mobileMenuOverlay) {
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+}
+
+// Fermer le menu mobile sur escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+    }
+});
+
+// ==================== FIREBASE ET DASHBOARD ====================
 document.addEventListener('DOMContentLoaded', function() {
     // ==================== FIREBASE CONFIGURATION ====================
     const firebaseConfig = {
@@ -16,12 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     
-    // ==================== GESTION DU CACHE ====================
-    function getUserFromCache() {
-        const userData = localStorage.getItem('dodje_user');
-        return userData ? JSON.parse(userData) : null;
-    }
-    
+        // ==================== GESTION DU CACHE ====================
     function saveUserToCache(userData) {
         localStorage.setItem('dodje_user', JSON.stringify(userData));
     }
@@ -284,6 +454,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('user-founder-code').textContent = userData.generatedFounderCode || '--';
                 document.getElementById('user-founder-code-popup').textContent = userData.generatedFounderCode || '--';
                 document.getElementById('user-registration-date').textContent = formatDate(userData.timestamp);
+                
+                // Mise à jour des informations dans le menu mobile
+                updateMobileUserInfo(userData);
                 
                 // Statistiques
                 const referralsCount = userData.referralsCount || 0;

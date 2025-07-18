@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodje - Mon Dashboard</title>
+    
+    <!-- Favicon pour l'onglet du navigateur -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/IconeApp.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/IconeApp.png">
+    <link rel="apple-touch-icon" href="assets/IconeApp.png">
+    
+    <!-- Meta tags pour le SEO et les réseaux sociaux -->
+    <meta name="description" content="Dodje - Mon Dashboard - L'application qui t'apprends la finance simplement et avec fun.">
+    <meta name="keywords" content="finance, éducation financière, application mobile, apprentissage, fun, investissement, dashboard">
+    <meta name="author" content="Dodje">
+    
+    <!-- Open Graph pour Facebook, LinkedIn, etc. -->
+    <meta property="og:title" content="Dodje - Mon Dashboard">
+    <meta property="og:description" content="Découvre la finance de manière ludique et interactive avec Dodje.">
+    <meta property="og:image" content="assets/IconeApp.png">
+    <meta property="og:url" content="https://dodje.xyz/dashboard">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dodje">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dodje - Mon Dashboard">
+    <meta name="twitter:description" content="Découvre la finance de manière ludique et interactive avec Dodje.">
+    <meta name="twitter:image" content="assets/IconeApp.png">
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -14,8 +39,17 @@
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Navigation minimale en haut de page -->
+    <nav class="navbar-minimal" id="navbar-minimal">
+        <div class="nav-minimal-container">
+            <div class="nav-logo-centered">
+                <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation complète lors du scroll -->
+    <nav class="navbar navbar-scroll" id="navbar-scroll">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
@@ -26,8 +60,51 @@
                 </button>
                 <button class="cta-button nav-cta" onclick="logout()">Retour à l'accueil</button>
             </div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Menu Mobile -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Informations utilisateur dans le menu mobile -->
+        <div class="mobile-user-info">
+            <div class="mobile-user-header">
+                <i class="fas fa-user"></i>
+                <h3>Mes Informations</h3>
+            </div>
+            <div class="mobile-info-items">
+                <div class="mobile-info-item">
+                    <strong>Email :</strong> <span id="mobile-user-email">--</span>
+                </div>
+                <div class="mobile-info-item">
+                    <strong>Nom d'utilisateur :</strong> <span id="mobile-user-username">--</span>
+                </div>
+                <div class="mobile-info-item">
+                    <strong>Code fondateur :</strong> <span id="mobile-user-founder-code">--</span>
+                </div>
+                <div class="mobile-info-item">
+                    <strong>Inscription :</strong> <span id="mobile-user-registration-date">--</span>
+                </div>
+                <div class="mobile-info-item">
+                    <strong>Statut :</strong> <span class="status-badge" id="mobile-user-status">Fondateur</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mobile-cta">
+            <button class="cta-button" onclick="logout()">Retour à l'accueil</button>
+        </div>
+    </div>
 
     <!-- Info Popup -->
     <div class="info-popup" id="infoPopup">
@@ -63,7 +140,7 @@
         <div class="container">
             <div class="dashboard-header">
                 <div class="header-content">
-                    <h1>Bienvenue dans<br>l'aventure Dodje !</h1>
+                    <h1>Bienvenue dans l'aventure Dodje<br><span class="animate-jeune-gland">jeune gland</span> !</h1>
                     <div class="header-countdown">
                         <div class="countdown-timer-inline">
                             <div class="time-unit-inline">
@@ -80,37 +157,44 @@
                             </div>
                         </div>
                     </div>
-                    <p class="dashboard-subtitle">T'es pressé, nous aussi. Voici quelques missions pour t'aider à patienter :</p>
+                    <p class="dashboard-subtitle">T'es pressé ? nous aussi ! Voici quelques missions pour t'aider à patienter :</p>
                 </div>
             </div>
 
             <!-- Passe de Combat -->
             <div class="battle-pass-section">
-                <div class="battle-pass-header">
-                    <div class="battle-pass-title">
-                        <div class="battle-pass-title-row">
-                            <img src="assets/Recompense.png" alt="Récompense" class="reward-icon">
-                            <h2>Le réveil du gland</h2>
-                        </div>
-                        <p class="battle-pass-subtitle">Invite des potes et gagne des récompenses !</p>
-                        <div class="advancement-score">
-                            <span id="referrals-count">0</span> parrainages
+                <div class="battle-pass-row">
+                    <div class="battle-pass-content">
+                        <h2 class="battle-pass-title">
+                            <span class="animate-reveil-gland">L'éveil du gland</span>
+                        </h2>
+                        <p class="battle-pass-description">
+                            Invite des potes et gagne des récompenses ! Plus tu parraines, plus tu débloques de récompenses exclusives.
+                        </p>
+                        <div class="battle-pass-quote">
+                            <strong>Tu récupereras tes récompenses dans l'application lorsqu'elle sera disponible !</strong>
                         </div>
                     </div>
-                    <div class="founder-code-section">
-                        <h3 class="founder-code-title">Mon code fondateur</h3>
-                        <div class="founder-code">
-                            <div class="code-value" id="user-founder-code">
-                                <!-- Code sera injecté par JavaScript -->
+                    <div class="founder-code-visual">
+                        <div class="founder-code-section">
+                            <h3 class="founder-code-title">Mon code fondateur</h3>
+                            <div class="founder-code">
+                                <div class="code-value" id="user-founder-code">
+                                    <!-- Code sera injecté par JavaScript -->
+                                </div>
+                                <button class="copy-button-minimal" onclick="copyFounderCode()" title="Copier le code">
+                                    <i class="fas fa-copy"></i>
+                                </button>
                             </div>
-                            <button class="copy-button-minimal" onclick="copyFounderCode()" title="Copier le code">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                            <p class="founder-code-description">Partage ton code avec tes potes pour qu'ils rejoignent l'aventure</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="battle-pass-rewards">
+                    <div class="advancement-score">
+                        <span id="referrals-count">0</span> parrainages réalisés
+                    </div>
                     <div class="rewards-track">
                         <!-- Niveau 1 -->
                         <div class="reward-item" data-level="1">
@@ -192,10 +276,11 @@
                 <div class="game-header">
                     <div class="game-title">
                         <div class="game-title-row">
-                            <img src="assets/arbre.png" alt="Arbre" class="game-icon">
-                            <h2>Dodje Bird</h2>
+                            <h2><span class="animate-entourage">Flappy Dodje</span></h2>
                         </div>
-                        <p class="game-subtitle">Réalise le meilleur score et gagne des récompenses !</p>
+                        <p class="game-description">
+                            Les premiers gagneront des récompenses, alors à toi de jouer !
+                        </p>
                     </div>
                     <div class="game-score">
                         <div class="score-display">
@@ -213,7 +298,7 @@
                 </div>
                 
                 <div class="game-container">
-                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+                    <canvas id="gameCanvas" width="800" height="500"></canvas>
                     <div class="game-overlay" id="gameOverlay">
                         <div class="game-start-screen" id="startScreen">
                             <h3>Dodje Bird</h3>
@@ -243,9 +328,6 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="leaderboard-reward-message">
-                <p>Les 10 premiers gagneront une récompense glandesque</p>
-            </div>
             <div class="leaderboard-content">
                 <div class="leaderboard-loading" id="leaderboardLoading">
                     <i class="fas fa-spinner fa-spin"></i>
@@ -268,19 +350,19 @@
                 </div>
                 <div class="footer-section">
                     <h4>Suis le mouvement</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    </div>
+                                    <div class="social-links">
+                    <a href="https://www.tiktok.com/@user453081960316645" class="social-link" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/dodjeapp/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://discord.gg/g3VH3Qtx8p" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
+                    <a href="https://x.com/DodjeApp" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
                 </div>
                 <div class="footer-section">
                     <h4>Liens utiles</h4>
                     <ul>
-                        <li><a href="#">Mentions légales</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Presse / Dossier media</a></li>
+                        <li><a href="conditions-utilisation.html">Conditions d'utilisation</a></li>
+                        <li><a href="mailto:contact@dodje.xyz">contact@dodje.xyz</a></li>
+                        <li><a href="politique-confidentialite.html">Confidentialité</a></li>
                     </ul>
                 </div>
             </div>

@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodje - L'application qui t'apprends la finance simplement et avec fun</title>
+    
+    <!-- Favicon pour l'onglet du navigateur -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/IconeApp.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/IconeApp.png">
+    <link rel="apple-touch-icon" href="assets/IconeApp.png">
+    
+    <!-- Meta tags pour le SEO et les réseaux sociaux -->
+    <meta name="description" content="Dodje - L'application qui t'apprends la finance simplement et avec fun. Découvre la finance de manière ludique et interactive.">
+    <meta name="keywords" content="finance, éducation financière, application mobile, apprentissage, fun, investissement">
+    <meta name="author" content="Dodje">
+    
+    <!-- Open Graph pour Facebook, LinkedIn, etc. -->
+    <meta property="og:title" content="Dodje - L'application qui t'apprends la finance simplement et avec fun">
+    <meta property="og:description" content="Découvre la finance de manière ludique et interactive avec Dodje.">
+    <meta property="og:image" content="assets/IconeApp.png">
+    <meta property="og:url" content="https://dodje.xyz">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dodje">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dodje - L'application qui t'apprends la finance simplement et avec fun">
+    <meta name="twitter:description" content="Découvre la finance de manière ludique et interactive avec Dodje.">
+    <meta name="twitter:image" content="assets/IconeApp.png">
+    
     <link rel="stylesheet" href="styles.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -16,20 +40,51 @@
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Navigation minimale en haut de page -->
+    <nav class="navbar-minimal" id="navbar-minimal">
+        <div class="nav-minimal-container">
+            <div class="nav-logo-centered">
+                <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation complète lors du scroll -->
+    <nav class="navbar navbar-scroll" id="navbar-scroll">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
             </div>
             <div class="nav-menu">
                 <a href="#about" class="nav-link">À propos</a>
-                <a href="#features" class="nav-link">Features</a>
+                <a href="#features" class="nav-link">Fonctionnalités</a>
                 <a href="#community" class="nav-link">Communauté</a>
                 <button class="cta-button nav-cta">C'est parti !</button>
             </div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Menu Mobile -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <img src="assets/Logo_degrade_PNG.png" alt="Dodje" class="logo-img">
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav-links">
+            <a href="#about" class="nav-link">À propos</a>
+            <a href="#features" class="nav-link">Fonctionnalités</a>
+            <a href="#community" class="nav-link">Communauté</a>
+        </nav>
+        <div class="mobile-cta">
+            <button class="cta-button">C'est parti !</button>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
@@ -37,7 +92,7 @@
             <div class="hero-content">
                 <h1 class="hero-title">
                     L'application <span class="animate-gratuit">gratuite</span> qui t'apprend la finance 
-                    <span class="animate-simplement">simplement</span> et avec <span class="animate-fun">fun</span> !
+                    <span class="animate-simplement">simplement,</span> sans être <span class="animate-fun">chiant</span> !
                 </h1>
                 <button class="cta-button hero-cta">
                     C'est parti !
@@ -60,11 +115,11 @@
                         <span class="animate-progressif">progressif</span>
                     </h2>
                     <p class="pillar-description">
-                        Plus qu'une app, un mentor. Tu commences par les bases, tu avances à ton rythme, tu comprends tout. Pour de vrai.
-                        Parc qu'on ne naît pas investisseur, <strong>on le devient</strong> ! 
+                        Plus qu'une app, un mentor. Tu commences par les bases, tu avances à ton rythme.
+                        Parce qu'on ne naît pas investisseur, <strong>on le devient</strong> ! 
                     </p>
                     <div class="pillar-quote">
-                        Parce que chaque <strong>grand chêne à un jour été un gland</strong>
+                    <strong>Chaque grand chêne à un jour été un gland !</strong>
                     </div>
                 </div>
                 <div class="pillar-visual">
@@ -76,15 +131,14 @@
             <div class="pillar-row">
                 <div class="pillar-content">
                     <h2 class="pillar-title">
-                        Une méthode<br>
+                        Un mouvement<br>
                         <span class="animate-revolutionnaire">révolutionnaire</span>
                     </h2>
                     <p class="pillar-description">
-                        La finance n'est plus réservée à ceux qui savent déjà. 
                         Pas de promesses magiques, pas de vendeurs de rêve, sans costume ni charabia.
                     </p>
                     <div class="pillar-quote">
-                        Pour remettre le savoir entre les mains de ceux qui en ont vraiment besoin.
+                        <strong>La finance pour tous, partout, n'importe quand.</strong>
                     </div>
                 </div>
                 <div class="pillar-visual">
@@ -99,22 +153,14 @@
                         <span class="animate-gratuit-simple-fun">Gratuit. Simple.<br>Fun.</span>
                     </h2>
                     <p class="pillar-description">
-                        Une app gratuite, qui t'accompagne dans ta progression tout en s'amusant. 
-                        Gagne des badges, des skins et bien plus encore !
+                        Savoir gérer son argent n'a pas de prix, n'a pas besoin d'être compliqué et n'est pas obligatoirement une prise de tête !
                     </p>
                     <div class="pillar-quote">
-                        Parce que la finance n'a pas besoin d'être une prise de tête.
+                        <strong>Oui oui, c'est possible !</strong>
                     </div>
                 </div>
                 <div class="pillar-visual">
-                    <div class="fun-illustration">
-                        <div class="game-elements">
-                            <div class="trophy">🏆</div>
-                            <div class="star">⭐</div>
-                            <div class="fire">🔥</div>
-                        </div>
-                        <div class="happy-face">😊</div>
-                    </div>
+                    <img src="assets/anime/fun.gif" alt="Fun Dodje" class="fun-gif">
                 </div>
             </div>
         </div>
@@ -154,7 +200,7 @@
                     </h2>
                     <p class="feature-description">
                         Plus qu'un apprentissage, une <strong>épopée financière</strong>. 
-                        Chaque parcours s'adapte à ton niveau et à tes objectifs pour t'emmener vers la maîtrise.
+                        Chaque parcours s'adapte à ton niveau et à tes objectifs pour t'emmener vers l'indépendance.
                     </p>
                 </div>
                 <div class="feature-visual">
@@ -176,11 +222,10 @@
                 </div>
                 <div class="feature-content">
                     <h2 class="feature-title">
-                        Des vidéos<br>
-                        <span class="animate-dynamiques">dynamiques</span>
+                        <span class="animate-complete">Des vidéos<br>dynamiques</span>
                     </h2>
                     <p class="feature-description">
-                        Des séries de vidéos animées <strong>pleines de vie</strong>. 
+                        Des séries de courtes vidéos animées <strong>pleines de vie</strong>. 
                         Parce que la finance n'a pas besoin d'être ennuyeuse.
                     </p>
                 </div>
@@ -195,18 +240,11 @@
                     </h2>
                     <p class="feature-description">
                         Réalise des <strong>défis quotidiens</strong> et obtiens des récompenses. 
-                        Apprendre en s'amusant, c'est la clé de la mémorisation durable.
+                        Personnalise ton expérience et évolue au rythme de tes objectifs.
                     </p>
                 </div>
                 <div class="feature-visual">
-                    <div class="game-illustration">
-                        <div class="controller">🎮</div>
-                        <div class="rewards">
-                            <div class="coin">🪙</div>
-                            <div class="badge">🏅</div>
-                            <div class="crown">👑</div>
-                        </div>
-                    </div>
+                    <img src="assets/anime/re_compenses.gif" alt="Récompenses ludiques" class="rewards-gif">
                 </div>
             </div>
 
@@ -218,11 +256,11 @@
                 <div class="feature-content">
                     <h2 class="feature-title">
                         Une aventure<br>
-                        <span class="animate-complete">complète</span>
+                        <span class="animate-dynamiques">complète</span>
                     </h2>
                     <p class="feature-description">
                         Plus que de simples cours ! Avec <strong>DodjeLabs</strong>, tu 
-                        passes du théorique à la pratique en mode simulateur réaliste.
+                        passes de la théorie à la pratique dans nos simulateurs réalistes.  
                     </p>
                 </div>
             </div>
@@ -282,18 +320,18 @@
                 <div class="footer-section">
                     <h4>Suis le mouvement</h4>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@user453081960316645" class="social-link" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/dodjeapp/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://discord.gg/g3VH3Qtx8p" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
+                        <a href="https://x.com/DodjeApp" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
                     <h4>Liens utiles</h4>
                     <ul>
-                        <li><a href="#">Mentions légales</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Presse / Dossier media</a></li>
+                        <li><a href="conditions-utilisation.html">Conditions d'utilisation</a></li>
+                        <li><a href="mailto:contact@dodje.xyz">contact@dodje.xyz</a></li>
+                        <li><a href="politique-confidentialite.html">Confidentialité</a></li>
                     </ul>
                 </div>
             </div>
@@ -307,7 +345,7 @@
     <div class="modal-overlay" id="preinscription-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Rejoins la révolution Dodje !</h2>
+                <h2>Rejoins la révolution !</h2>
                 <button class="close-modal" id="close-modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -347,7 +385,7 @@
                                 <span>Tu ne peux pas utiliser ton propre code de parrainage</span>
                             </div>
                             <button type="submit" class="cta-button submit-email">
-                                <span class="button-text">Réserver ma place</span>
+                                <span class="button-text">M'inscrire</span>
                                 <span class="button-loader" style="display: none;">
                                     <i class="fas fa-spinner fa-spin"></i>
                                 </span>
@@ -358,15 +396,15 @@
                 
                 <!-- Contenu onglet connexion -->
                 <div class="tab-content" id="login-tab">
-                    <p>Connecte-toi avec ton compte existant :</p>
+                    <p>Connecte-toi avec ton adresse email :</p>
                     <form id="login-form">
                         <div class="form-group">
                             <input 
-                                type="text" 
+                                type="email" 
                                 id="login-input" 
-                                placeholder="Adresse email ou nom d'utilisateur" 
+                                placeholder="Adresse email" 
                                 required
-                                autocomplete="username"
+                                autocomplete="email"
                             >
                             <button type="submit" class="cta-button submit-login">
                                 <span class="button-text">Se connecter</span>
